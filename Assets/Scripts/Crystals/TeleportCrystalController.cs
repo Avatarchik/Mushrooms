@@ -8,7 +8,11 @@ public class TeleportCrystalController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        _QuestController.CollectTeleportCrystal();
-        Destroy(gameObject);
+        PlayerController player = other.GetComponent<PlayerController>();
+        if (player)
+        {
+            _QuestController.CollectTeleportCrystal();
+            Destroy(gameObject);
+        }
     }
 }

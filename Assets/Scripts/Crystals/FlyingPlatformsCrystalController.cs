@@ -8,7 +8,11 @@ public class FlyingPlatformsCrystalController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        _QuestController.CollectFlyingPlatformsCrystal();
-        Destroy(gameObject);
+        PlayerController player = other.GetComponent<PlayerController>();
+        if(player)
+        {
+            _QuestController.CollectFlyingPlatformsCrystal();
+            Destroy(gameObject);
+        }
     }
 }

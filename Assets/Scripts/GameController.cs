@@ -15,10 +15,16 @@ public class GameController : MonoBehaviour {
     private Text _GameOverTitle;
 
     [SerializeField]
+    private Text _GameOverScore;
+
+    [SerializeField]
     private PlayerController _PlayerController;
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField]
+    private ScoreController _ScoreController;
+
+    // Use this for initialization
+    void Start () {
         _GameOverCanvasGroup.alpha = 0;
         _PauseCanvasGroup.alpha = 0;
     }
@@ -81,9 +87,7 @@ public class GameController : MonoBehaviour {
 
     public void ResetPosition()
     {
-        _PlayerController.transform.rotation = Quaternion.identity; //TODO _PlayerController.StartTransform.rotation;
-        _PlayerController.transform.position = Vector3.up * 24.0f; //TODO _PlayerController.StartTransform.position;
-
+        _PlayerController.ResetPosition();
         SetPaused(false);
     }
 
@@ -95,6 +99,7 @@ public class GameController : MonoBehaviour {
     public void GameOver(bool victory)
     {
         _GameOverTitle.text = victory ? "Victory!" : "Game Over";
+        _GameOverScore.text = "Score:\n" + _ScoreController.Score;
         _GameOverCanvasGroup.alpha = 1;
     }
 }

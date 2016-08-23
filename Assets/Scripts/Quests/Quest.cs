@@ -94,7 +94,7 @@ public class Quest {
         switch(questType)
         {
             case QuestType.LostSon:
-                return new Quest(questType, 50000, "Lost son",
+                return new Quest(questType, 10000, "Lost son",
                     "Honey! Out son is gone!",
                     "glad to see you? Have you found our son?",
                     "Oh honey! You did it. You've brought our son back! I love you so much!",
@@ -124,7 +124,7 @@ public class Quest {
                     "Bring me five of them. It should be enough...",
                     "Have my crystals, haven't you?",
                     "Dirty magic! Dirty mahic! Uga #buga! G$h g$h $4s ur!",
-                    "Collect 5 Mana Crystals.");
+                    "Collect 4 Mana Crystals.");
             case QuestType.NoTeleports:
                 return new Quest(questType, 1000, "Broken teleport",
                     "Hi, can you help me? I'm trying to fix this teleport to get back home." +
@@ -137,10 +137,10 @@ public class Quest {
                 return new Quest(questType, 1000, "Flying platforms",
                     "I'm sorry, but today you cannot use flying platforms." +
                     "\nThey have stopped last night. Furthermore all magic crystals that can move them have been stolen!" +
-                    "\nIf you want to run platforms you have to bring me four purple crystals.",
+                    "\nIf you want to run platforms you have to bring me purple crystal.",
                     "Hi again, wanna ride?",
                     "Yes, with those crystals we can use moving platforms again!",
-                    "Find 4 Purple Crystals.");
+                    "Find Purple Crystal.");
             default:
                 return null;
         }

@@ -41,13 +41,15 @@ public class PlayerController : MonoBehaviour
 
     private bool _Dead = false;
 
-    [Header("Gizmos")]
-    [SerializeField] private float _FlagDistance;
-    [SerializeField] private LayerMask _FlagMask;
+
+
+
+    public bool Dead { get { return _Dead; } }
+
     #endregion Inspector Variables
-    
+
     #region Private Variables
-    private Ray _FlagRay;
+
     #endregion Private Variables
 
 
@@ -65,26 +67,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         UpdateAnimations();
-
-        Flag();
-        Shoot();
     }
     private void FixedUpdate()
     {
         DoRotate();
         DoMove();
         DoJump();
-    }
-
-    public void OnDrawGizmos()
-    {
-        _FlagRay = new Ray(transform.position + transform.forward * _FlagDistance, -transform.up);
-        Gizmos.DrawLine(_FlagRay.origin, _FlagRay.origin + _FlagRay.direction * 2.0f);
-
-        var ray = _Camera.ScreenPointToRay(Input.mousePosition);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(ray);
     }
 
     /// <summary>
@@ -110,6 +98,12 @@ public class PlayerController : MonoBehaviour
 
         _GameController.GameOver(false);
         _Animator.DeathOver();
+    }
+
+    public void ResetPosition()
+    {
+        transform.rotation = Quaternion.identity;
+        transform.position = new Vector3(2.0f, 24.0f, 0.0f);
     }
 
     #region Private Methods
@@ -177,26 +171,6 @@ public class PlayerController : MonoBehaviour
         {
             _Rigidbody.AddForce(transform.up * _JumpForce, ForceMode.Impulse);
         }
-    }
-
-    private void Flag()
-    {
-        _FlagRay = new Ray(transform.position + transform.forward * _FlagDistance, -transform.up);
-
-        if(!_Input.Flag)
-            return;
-
-        if(Physics.Raycast(_FlagRay, 2.0f, _FlagMask))
-        {
-            //_Animator.Flag();
-        }
-    }
-    private void Shoot()
-    {
-		if (_Input.Shoot) {
-			Ray ray = _Camera.ScreenPointToRay (Input.mousePosition);
-			//_Weapon.Shoot (ray);
-		}
     }
 
     private void LockCursor()

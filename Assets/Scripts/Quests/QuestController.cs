@@ -22,6 +22,9 @@ public class QuestController : MonoBehaviour {
     [SerializeField]
     private ScoreController _ScoreController;
 
+    [SerializeField]
+    private GameController _GameController;
+
 
 
     [SerializeField]
@@ -444,6 +447,9 @@ public class QuestController : MonoBehaviour {
 
         switch (_CurrentQuest)
         {
+            case Quest.QuestType.LostSon:
+                RewardLostSonQuest();
+                break;
             case Quest.QuestType.MissingFire:
                 RewardMissingFireQuest();
                 break;
@@ -459,6 +465,11 @@ public class QuestController : MonoBehaviour {
             default:
                 break;
         }
+    }
+
+    private void RewardLostSonQuest()
+    {
+        _GameController.GameOver(true);
     }
 
     private void RewardMissingFireQuest()

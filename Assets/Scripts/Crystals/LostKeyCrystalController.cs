@@ -8,7 +8,11 @@ public class LostKeyCrystalController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        _QuestController.CollectLostKeyCrystal();
-        Destroy(gameObject);
+        PlayerController player = other.GetComponent<PlayerController>();
+        if (player)
+        {
+            _QuestController.CollectLostKeyCrystal();
+            Destroy(gameObject);
+        }
     }
 }

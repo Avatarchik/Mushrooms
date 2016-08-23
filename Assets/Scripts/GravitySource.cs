@@ -26,8 +26,11 @@ public class GravitySource : MonoBehaviour
         Vector3 gravityUp = (gravityBody.transform.position - transform.position).normalized;
         Vector3 bodyUp = gravityBody.transform.up;
         
-        Quaternion targetRotation = Quaternion.FromToRotation(bodyUp, gravityUp) * gravityBody.transform.rotation;
-        gravityBody.transform.rotation = Quaternion.Slerp(gravityBody.transform.rotation, targetRotation, 50 * Time.deltaTime);
+        if(gravityBody.LockRotation)
+        {
+            Quaternion targetRotation = Quaternion.FromToRotation(bodyUp, gravityUp) * gravityBody.transform.rotation;
+            gravityBody.transform.rotation = Quaternion.Slerp(gravityBody.transform.rotation, targetRotation, 50 * Time.deltaTime);
+        }
 
         if (gravityBody.Ground)
         {

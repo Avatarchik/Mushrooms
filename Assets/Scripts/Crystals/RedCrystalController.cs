@@ -8,7 +8,11 @@ public class RedCrystalController : MonoBehaviour {
     
     void OnTriggerEnter(Collider other)
     {
-        _QuestController.CollectRedCrystal();
-        Destroy(gameObject);
+        PlayerController player = other.GetComponent<PlayerController>();
+        if (player)
+        {
+            _QuestController.CollectRedCrystal();
+            Destroy(gameObject);
+        }
     }
 }

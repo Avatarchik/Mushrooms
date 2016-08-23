@@ -35,6 +35,8 @@ public class GravityBody : MonoBehaviour
 
     #region Public Variables
     public Rigidbody Rigidbody;
+
+    public bool LockRotation = true;
     #endregion Public Variables
 
     #region Public Variables

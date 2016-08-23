@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SkeletonController : MonoBehaviour {
+public class SkeletonController : MonoBehaviour
+{
+    [SerializeField]
+    private Collider _Collider;
 
     [SerializeField]
     private Rigidbody _Rigidbody;
+
+    [SerializeField]
+    private SkeletonAnimator _Animator;
 
     private Vector3 _Position;
 
@@ -18,13 +24,19 @@ public class SkeletonController : MonoBehaviour {
 
     public float Speed = 4;
 
+    private bool _Dead = false;
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         _Position = transform.position;
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (_Dead) return;
+
         if (_Player)
         {
             _Target = _Player.transform.position;
@@ -49,11 +61,14 @@ public class SkeletonController : MonoBehaviour {
     {
         Vector3 direction = (_Target - transform.position).normalized;
         transform.rotation = Quaternion.LookRotation(direction);
+
         _Rigidbody.AddForce(transform.forward * Speed, ForceMode.VelocityChange);
+        _Animator.Speed(_Rigidbody.velocity.magnitude);
     }
 
     private void DoAttack()
     {
+        _Animator.Attack();
         _Player.Die();
     }
 
@@ -66,5 +81,20 @@ public class SkeletonController : MonoBehaviour {
     void OnTriggerExit(Collider other)
     {
         _Player = null;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        //TODO _Collider.enabled = false;
+        _Animator.Die();
+        _Dead = true;
     }
 }

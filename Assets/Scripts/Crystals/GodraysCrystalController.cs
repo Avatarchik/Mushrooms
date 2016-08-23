@@ -8,7 +8,11 @@ public class GodraysCrystalController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        _QuestController.CollectGodraysCrystal();
-        Destroy(gameObject);
+        PlayerController player = other.GetComponent<PlayerController>();
+        if (player)
+        {
+            _QuestController.CollectGodraysCrystal();
+            Destroy(gameObject);
+        }
     }
 }

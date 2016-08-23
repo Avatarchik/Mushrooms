@@ -467,6 +467,7 @@ GameObject:
   - 135: {fileID: 13567210}
   - 114: {fileID: 11437622}
   - 114: {fileID: 11433292}
+  - 114: {fileID: 11414338}
   m_Layer: 8
   m_Name: Skeleton
   m_TagString: Untagged
@@ -1028,6 +1029,18 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
+--- !u!114 &11414338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c03b572992effe54aa4d94bd3d6e6fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Animator: {fileID: 0}
 --- !u!114 &11433292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1066,6 +1079,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   Rigidbody: {fileID: 5488604}
+  LockRotation: 1
 --- !u!135 &13567210
 SphereCollider:
   m_ObjectHideFlags: 1
