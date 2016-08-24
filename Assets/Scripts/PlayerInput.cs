@@ -11,7 +11,7 @@ class PlayerInput : MonoBehaviour
     [Header("Input")]
     [SerializeField] private KeyCode _WalkKey    = KeyCode.LeftShift;
     [SerializeField] private KeyCode _JumpKey    = KeyCode.Space;
-    [SerializeField] private KeyCode _ActionKey = KeyCode.E;// | KeyCode.KeypadEnter;
+    [SerializeField] private KeyCode _ActionKey = KeyCode.E;
 
     [Header("Mouse")]
     [SerializeField] private float _SensivityHorizontal;
@@ -23,10 +23,17 @@ class PlayerInput : MonoBehaviour
     {
         get { return _VerticalAxis; }
     }
+
+    public float Right
+    {
+        get { return _HorizontalAxis; }
+    }
+
     public float Horizontal
     {
         get { return _MouseHorizontal * _SensivityHorizontal; }
     }
+
     public float Vertical
     {
         get { return _MouseVertical * _SensivityVertical; }
@@ -42,6 +49,7 @@ class PlayerInput : MonoBehaviour
 
     #region Private Variables
     private float _VerticalAxis;
+    private float _HorizontalAxis;
 
     private float _MouseVertical;
     private float _MouseHorizontal;
@@ -58,6 +66,7 @@ class PlayerInput : MonoBehaviour
     private void Update()
     {
         _VerticalAxis = Input.GetAxis("Vertical");
+        _HorizontalAxis = Input.GetAxis("Horizontal");
 
         _MouseHorizontal = Input.GetAxis("Mouse X");
         _MouseVertical   = Input.GetAxis("Mouse Y");

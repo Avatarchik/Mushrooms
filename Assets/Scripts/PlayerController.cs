@@ -21,7 +21,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerInput    _Input;
     [SerializeField] private PlayerAnimator _Animator;
     [SerializeField] private Rigidbody      _Rigidbody;
-    [SerializeField] private Camera         _Camera;
+    
+    //TODO move to camera controller
+    [SerializeField]
+    private GameObject _CameraTarget;
+    [SerializeField]
+    private Camera _Camera;
+    [SerializeField]
+    private float _CameraDistance = 6.0f;
+    
+    public float MinCameraDistance = 0.0f;
+    public float MaxCameraDistance = 16.0f;
+    public float CameraDistanceChange = 1.0f;
+    //TODO
 
     [SerializeField]
     private GameController _GameController;
@@ -52,21 +64,17 @@ public class PlayerController : MonoBehaviour
 
     #endregion Private Variables
 
-
-
-    private Transform _StartTransform;
-
-    public Transform StartTransform { get { return _StartTransform; } }
-
     #region Unity Messages
     private void Start()
     {
-        _StartTransform = transform;
         LockCursor();
+        UpdateCameraPosition();
     }
+
     private void Update()
     {
         UpdateAnimations();
+        UpdateCameraPosition();
     }
     private void FixedUpdate()
     {
@@ -131,7 +139,7 @@ public class PlayerController : MonoBehaviour
         if (!_Animator.CanMove ())
 			return;
 		
-        Vector3 translation = _Input.Forward * transform.forward;
+        Vector3 translation = _Input.Forward * transform.forward + _Input.Right * transform.right;
         translation *= _Input.Walk ? _WalkForce : _RunForce;
 
         if(!_GravityBody.OnGround) {
@@ -158,12 +166,28 @@ public class PlayerController : MonoBehaviour
     private void DoRotate()
     {
         transform.Rotate(Vector3.up * _Input.Horizontal * Time.deltaTime);
+        
+        //_CameraTarget.transform.Rotate(Vector3.right * -_Input.Vertical * Time.deltaTime);
 
-        //var rotation = _Camera.transform.localRotation * Quaternion.Euler(Vector3.right * -_Input.Vertical);
-        //if (rotation.eulerAngles.x < _TiltDown || rotation.eulerAngles.x > (360.0f - _TiltUp))
-        //{
-        //    _Camera.transform.localRotation = rotation;
-        //}
+        //_Camera.transform.position = transform.position;
+
+        var rotation = _CameraTarget.transform.localRotation * Quaternion.Euler(Vector3.right * -_Input.Vertical);
+        if (rotation.eulerAngles.x < _TiltDown || rotation.eulerAngles.x > (360.0f - _TiltUp))
+        {
+            _CameraTarget.transform.localRotation = rotation;
+        }
+
+        //_Camera.transform.Translate(_Camera.transform.forward * 5.0f);
+        //_Camera.transform.Translate(_Camera.transform.up * 3.0f);
+    }
+
+    private void UpdateCameraPosition()
+    {
+        _CameraDistance -= Input.GetAxis("Mouse ScrollWheel") * CameraDistanceChange;
+        if (_CameraDistance < MinCameraDistance) _CameraDistance = MinCameraDistance;
+        if(_CameraDistance > MaxCameraDistance) _CameraDistance = MaxCameraDistance;
+
+        _Camera.transform.localPosition = new Vector3(0, _CameraDistance, -_CameraDistance);
     }
 
     private void DoJump()
