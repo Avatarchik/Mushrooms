@@ -37,6 +37,8 @@ public class GravityBody : MonoBehaviour
     public Rigidbody Rigidbody;
 
     public bool LockRotation = true;
+
+    public float _RayLength = 0.5f;
     #endregion Public Variables
 
     #region Public Variables
@@ -68,7 +70,7 @@ public class GravityBody : MonoBehaviour
 
         Ray ray = new Ray(transform.position, -transform.up);
 
-        if (Physics.Raycast(ray, out hit, 0.5f, _PlatformsMask))
+        if (Physics.Raycast(ray, out hit, _RayLength, _PlatformsMask))
         {
             _Ground = hit.transform.gameObject;
         }
@@ -77,7 +79,7 @@ public class GravityBody : MonoBehaviour
             _Ground = null;
         }
 
-        if (Physics.Raycast(ray, out hit, 0.5f, _MovingPlatformsMask))
+        if (Physics.Raycast(ray, out hit, _RayLength, _MovingPlatformsMask))
         {
             _MovingGround = hit.transform.gameObject;
         }
@@ -86,14 +88,15 @@ public class GravityBody : MonoBehaviour
             _MovingGround = null;
         }
 
-        if (Physics.Raycast(ray, out hit, 0.5f))
-        {
-            _OnGround = true;
-        }
-        else
-        {
-            _OnGround = false;
-        }
+        _OnGround = Physics.Raycast(ray, out hit, _RayLength);
+        
+        ray = new Ray(transform.position + transform.forward, -transform.up);
+
+        _OnGround |= Physics.Raycast(ray, out hit, _RayLength);
+
+        ray = new Ray(transform.position - transform.forward, -transform.up);
+
+        _OnGround |= Physics.Raycast(ray, out hit, _RayLength);
     }
 
     #endregion Unity Messages

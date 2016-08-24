@@ -33,6 +33,11 @@ public class PlayerAnimator : MonoBehaviour
         _Animator.SetFloat("speed", speed);
     }
 
+    public void SetOnGround(bool onGround)
+    {
+        _Animator.SetBool("OnGround", onGround);
+    }
+
     public void Attack()
     {
         _Animator.SetBool("Attack", false);
@@ -47,14 +52,17 @@ public class PlayerAnimator : MonoBehaviour
     {
         _Animator.SetBool("isDeath", false);
     }
+
     public void DeathOver2()
     {
         _Animator.SetBool("isDeath2", false);
     }
+
     public void HitOver()
     {
         _Animator.SetBool("HitStrike", false);
     }
+
     public void DamageOver()
     {
         _Animator.SetBool("isDamage", false);

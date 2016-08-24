@@ -8,6 +8,8 @@ public class FlyingPlatformsController : MonoBehaviour {
     public float Angle;
 
     public bool SwitchedOn = false;
+
+    public float ForceFactor = 0.75f;
     
 	// Update is called once per frame
 	void Update () {

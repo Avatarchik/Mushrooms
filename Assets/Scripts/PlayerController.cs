@@ -143,23 +143,27 @@ public class PlayerController : MonoBehaviour
         if(_GravityBody.MovingGround)
         {
             FlyingPlatformsController rotator = _GravityBody.MovingGround.GetComponentInParent<FlyingPlatformsController>();
-            if (rotator)
+            if (rotator && rotator.SwitchedOn)
             {
                 //TODO make it better - use sqrt(platform distance) * some constant ??
-                _Rigidbody.AddForce(Vector3.Cross(rotator.transform.rotation * rotator.Axis, _GravityBody.MovingGround.transform.up) * rotator.Angle * 3.0f, ForceMode.VelocityChange);
+                Vector3 direction = Vector3.Cross(rotator.transform.rotation * rotator.Axis, _GravityBody.MovingGround.transform.up).normalized;
+                float distance = _GravityBody.MovingGround.transform.position.magnitude;
+                _Rigidbody.AddForce(direction * rotator.Angle * Mathf.Sqrt(distance) * rotator.ForceFactor, ForceMode.VelocityChange);
             }
         }
+
+        _Animator.SetOnGround(_GravityBody.OnGround);
     }
 
     private void DoRotate()
     {
         transform.Rotate(Vector3.up * _Input.Horizontal * Time.deltaTime);
 
-        var rotation =_Camera.transform.localRotation * Quaternion.Euler(Vector3.right * - _Input.Vertical);
-        if(rotation.eulerAngles.x < _TiltDown || rotation.eulerAngles.x > (360.0f - _TiltUp))
-        {
-            _Camera.transform.localRotation = rotation;
-        }            
+        //var rotation = _Camera.transform.localRotation * Quaternion.Euler(Vector3.right * -_Input.Vertical);
+        //if (rotation.eulerAngles.x < _TiltDown || rotation.eulerAngles.x > (360.0f - _TiltUp))
+        //{
+        //    _Camera.transform.localRotation = rotation;
+        //}
     }
 
     private void DoJump()
