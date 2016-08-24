@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 433228}
   - 33: {fileID: 3300380}
   - 23: {fileID: 2318502}
+  - 136: {fileID: 13684208}
   m_Layer: 0
   m_Name: Shrooms8
   m_TagString: Untagged
@@ -24,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199028}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 10, z: 0}
+  m_LocalPosition: {x: 1.262, y: 12.319, z: 1.81}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -63,6 +64,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199028}
   m_Mesh: {fileID: 4300000, guid: e2b0b079a6b59e24f8266c615794688a, type: 3}
+--- !u!136 &13684208
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199028}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 7.2259445
+  m_Height: 19.383533
+  m_Direction: 1
+  m_Center: {x: 0.35621068, y: 8.480264, z: -0.63967025}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
